@@ -1,0 +1,86 @@
+PRABHAWATT | ONE SUN. MANY COMMUNITIES. SHARED PROSPERITY.
+Version: 1.0 | Date: 22 October 2026 | Status: proposed design / hackathon specification
+Basis: PrabhaWatt Complete A-to-Z Product Blueprint and original Prabhawattt Community Solar documentation.
+IMPORTANT: Delhi-first planning product, NOT a DISCOM, electricity retailer, official bill issuer, legal opinion, or approval authority. Regulatory rules and financing figures must be verified before production.
+
+IMPLEMENTATION PLAN AND DELIVERY ROADMAP
+========================================
+ASSUMPTIONS
+Illustrative 6-week team plan for 4-5 developers; adapt to hackathon time. Delhi-first, synthetic/anonymised data, no direct DISCOM/inverter API, no live settlement. Roles: product/regulatory researcher (PR), frontend (FE), backend/data (BE), optimisation/QA (OPT), design/demo (UX). One person may hold multiple roles.
+
+PHASE 0 | DISCOVERY AND LEGAL PATHWAY (DAYS 1-4)
+PR: choose one residential pilot (20 separately metered Delhi flats with prospective eligible VNM, OR one master-meter building; do not mix models); choose one standalone MSME CAPEX/RESCO case.
+PR: collect authoritative tariff, dated policy sources, 2026 amendment text, DERC provisions and approval conditions; mark unknowns explicitly.
+BE/OPT: create 3-5 anonymised bill samples or synthetic 20-flat dataset; obtain illustrative quotation and yield assumptions.
+EXIT: documented rules, assumptions, model scope, sample inputs and regulatory uncertainty register.
+
+PHASE 1 | FOUNDATIONS (WEEK 1)
+FE: landing, pathway wizard, project creation, login/roles, bill forms, consent screens.
+BE: schema, migrations, RBAC, consent, projects, bill intake and audit events.
+QA: tenancy tests, bill validation, missing/duplicate period cases.
+EXIT: users can create a project and upload validated synthetic bills without leaking private records.
+
+PHASE 2 | POLICY + FINANCIAL ENGINE (WEEK 2)
+PR/BE: dated rule registry, eligibility decisions with reason codes and evidence links.
+OPT: capacity/yield, CAPEX/RESCO and tariff calculations; unit/rounding tests.
+FE: eligibility and financial comparison pages.
+EXIT: one RWA and one MSME case produce source-labelled feasibility results; unsupported mixed sharing is blocked.
+
+PHASE 3 | OPTIMISER + ALLOCATION (WEEK 3)
+OPT: 10/12/15-kW candidates, budget constraints, max-participation objective, infeasibility explanations and timeout status.
+BE: allocation ledger, ownership shares, cost-share comparison, no-double-credit and exact reconciliation.
+FE: scenario lab, comparison charts, member breakdown.
+EXIT: 20-flat reproducible demo passes constraint and accounting tests; changing one budget changes a scenario where appropriate.
+
+PHASE 4 | APPROVALS + REPORTS + O&M (WEEK 4)
+BE: approval lifecycle, evidence attachment, internal statement export; synthetic generation import and tickets.
+FE: report centre, status timeline, O&M dashboard, service ticket screen.
+UX: accessible labels, source badges, 'not official utility bill' notice.
+EXIT: end-to-end demo from onboarding to internal report and synthetic fault alert.
+
+PHASE 5 | HARDENING + PITCH (WEEK 5)
+QA: unit, property, API, permission and security tests; verify no double credits or wrong subsidies.
+PR: competitive comparison with Delhi Solar Portal, PM Surya Ghar, EPC providers, RESCO, spreadsheets; mark unverified coverage.
+UX: demo narrative and backup offline video/screenshots; pilot interview script.
+EXIT: reproducible local deployment; all figures traceable to data and assumptions.
+
+PHASE 6 | PILOT READINESS (WEEK 6 AND BEYOND)
+PR: DISCOM consultation, actual project eligibility and approvals, roof consent and legal review.
+BE: PostgreSQL, encrypted storage, backups, monitoring, operational audit trail.
+Commercial: partner onboarding, quotes, RWA/MSME user interviews and willingness-to-pay testing.
+EXIT: no live-credit or subsidy claim without independent evidence and approval.
+
+DEPENDENCIES / CRITICAL PATH
+Verified pilot arrangement -> policy schema -> eligibility gate -> finance model -> optimiser -> allocation -> reports. O&M and provider discovery can be developed in parallel after core project schema. Do not build live credit settlement first.
+
+HACKATHON CUTDOWN (48-72 HOURS)
+Day 1: sample data + onboarding + bills + simple rules.
+Day 2: feasibility + optimiser + allocation reconciliation + tests.
+Day 3: scenario lab + one MSME path + synthetic O&M + export + rehearsed demo.
+If behind schedule: cut marketplace, OCR and live integrations before cutting rule gate, optimiser or reconciliation.
+
+RACI-LIKE OWNERSHIP
+PR owns rule provenance, consent wording, pilot scope and competitor evidence.
+FE owns user journeys, responsive UI, warnings and accessibility.
+BE owns APIs, data, auth, audit, export and integration boundaries.
+OPT owns solver, financial maths, invariants and benchmark baseline.
+UX owns user testing, pitch, demo flow and evidence clarity.
+
+DEFINITION OF DONE / QUALITY GATES
+- Every projected INR/kWh is labelled, source-linked and reproducible.
+- No unsupported policy pathway is presented as approved.
+- Shares total 100%; INR allocations reconcile; double credits prevented.
+- Optimiser status truthful and all constraints independently checked.
+- Tenant and participant privacy tests pass.
+- Demo works offline with synthetic data and clear disclaimers.
+
+RISKS AND CONTINGENCIES
+Policy ambiguity -> restrict to planning and mark requires approval.
+No real bills -> synthetic/anonymised samples with explicit labels.
+Solver infeasible -> explain reason, show alternatives; never fake solution.
+Too many features -> keep 20-flat optimiser as centrepiece.
+Partner unavailable -> mocked quote clearly labelled, no live-provider claim.
+No settlement data -> generate draft INTERNAL statements only.
+
+PILOT SUCCESS METRICS
+Model feasibility and reconciliation pass rates; solver latency; user comprehension; RWA/SME interest; verified installations and realised savings only after deployment. Record jobs supported separately from jobs created.

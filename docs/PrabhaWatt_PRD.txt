@@ -1,0 +1,71 @@
+PRABHAWATT | ONE SUN. MANY COMMUNITIES. SHARED PROSPERITY.
+Version: 1.0 | Date: 22 October 2026 | Status: proposed design / hackathon specification
+Basis: PrabhaWatt Complete A-to-Z Product Blueprint and original Prabhawattt Community Solar documentation.
+IMPORTANT: Delhi-first planning product, NOT a DISCOM, electricity retailer, official bill issuer, legal opinion, or approval authority. Regulatory rules and financing figures must be verified before production.
+
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+===================================
+1. PRODUCT VISION
+PrabhaWatt: a Delhi-first, regulation-aware platform making solar participation affordable, explainable and manageable for residential communities and MSMEs. Tagline: One Sun. Many Communities. Shared Prosperity.
+
+2. PROBLEM / OPPORTUNITY
+Customers struggle with upfront capital, roof rights, complex tariffs, unclear payback, fragmented quotes and maintenance. Collective models add participant budgets, ownership, approval and settlement complexity. Product hypothesis: eligibility-gated affordability optimisation plus auditable allocations is more useful than an installer directory or standalone calculator.
+
+3. GOALS AND NON-GOALS
+G1 Maximise number of financially feasible eligible participants in a modelled community.
+G2 Explain solar CAPEX/RESCO trade-offs to MSMEs without false subsidy promises.
+G3 Separate internal benefit planning from official credit settlement.
+G4 Support long-term asset performance and maintenance.
+NG1 Become a utility, electricity trader, subsidy approver, financier or legal adviser.
+
+4. PERSONAS / JOBS TO BE DONE
+P1 RWA coordinator: 'Show 20 households an understandable, defensible financing and share plan.'
+P2 Resident: 'Know my contribution, potential benefit, risk and privacy controls.'
+P3 MSME owner: 'Find out whether solar is affordable and which permitted model suits my operation.'
+P4 EPC/RESCO partner: 'Receive qualified, consented opportunities with standardised inputs.'
+P5 Technician: 'See faults, maintenance assignments and service records.'
+P6 Auditor: 'Trace each claimed rupee and kWh to inputs and rules.'
+
+5. CORE VALUE PROPOSITIONS / USPs
+USP-01 Affordability-first constrained optimisation, not a simple savings estimate.
+USP-02 Rule-gated pathway selection before shared credit calculations.
+USP-03 Explainable inclusion/exclusion decisions and budget sensitivity.
+USP-04 Transparent ownership versus internal cost-allocation comparison.
+USP-05 Source-linked settlement reconciliation; no double counting.
+USP-06 One lifecycle: assess -> check rules -> organise -> optimise -> approve -> maintain.
+USP-07 Separate residential community and MSME pathways in one platform.
+USP-08 Quote comparability, privacy-by-design and audit-ready reports.
+Claims of uniqueness remain hypotheses pending competitor benchmarking.
+
+6. PRIORITISATION
+P0 Hackathon: user roles; rule wizard; manual/CSV bills; 20-flat pilot; 10/12/15 kW scenarios; optimisation; allocation/reconciliation; PDF/text report; one MSME CAPEX/RESCO comparison; synthetic O&M dashboard.
+P1 Pilot: real quotes, consented leads, versioned policy sources, approval tracker, settlement import, work orders.
+P2 Production: approved inverter integrations, validated financing referrals, rule review workflow, multi-DISCOM coverage.
+
+7. USER JOURNEYS
+J1 Residential: coordinator registers community -> confirms meter model/roof rights -> invites members -> obtains consent/bills/budgets -> chooses quotes and funding -> optimiser -> compares plans -> member approval -> external DISCOM process -> settlement import -> internal reconciliation.
+J2 MSME: selects business category/DISCOM -> enters bills/roof/budget -> eligibility screen -> CAPEX/RESCO comparison -> request verified quote -> after installation track output and maintenance.
+J3 Technician: receives ticket -> inspects equipment -> records service -> coordinator confirms resolution.
+
+8. EXPERIENCE AND SCREEN MAP
+Landing; choose pathway; onboarding; privacy/consent; bills; roof/project details; eligibility; project dashboard; financing comparison; optimiser; allocation explanation; scenario lab; approval status; reports; provider comparison; asset performance; maintenance tickets; admin/rules.
+
+9. DEMO STORY
+20 synthetic Delhi flats and documented hypothetical 15-kW quote; run 10/12/15-kW scenarios; show baseline; reduce one household budget; rerun; compare internal policies while preserving legal VNM share rule; show draft internal statement; demonstrate standalone MSME CAPEX/RESCO case and synthetic maintenance alert.
+
+10. SUCCESS METRICS
+M1 Percentage of modelled scenarios satisfying all constraints (target 100%).
+M2 Exact allocation reconciliation rate (target 100%).
+M3 Number of affordable participants vs equal-share baseline (report actual comparison, no assumed uplift).
+M4 Median scenario solve time and timeout rate.
+M5 User comprehension of estimated vs verified credit in usability tests.
+M6 Real pilot: businesses assessed, installations verified, cost changes verified, technician work orders, system uptime; do not count projections as outcomes.
+
+11. COMMERCIAL MODEL
+Potential RWA project assessment fees, MSME premium reports, multi-site O&M subscriptions, disclosed EPC referrals and technician service software. Pricing, willingness-to-pay and partner terms require interviews; no revenue projections claimed.
+
+12. COMPETITIVE POSITIONING
+Substitutes: Delhi Solar Portal/DISCOM official pathways; PM Surya Ghar residential portal; solar EPC marketplaces (e.g. SolarSquare/Freyr); RESCO developers; RWA spreadsheets/management tools. Advantage to validate: combined policy gate + budget-constrained inclusion + explainable allocation + ongoing O&M. Do not claim competitors lack features without hands-on testing.
+
+13. RISKS / OPEN QUESTIONS
+Verify consolidated DERC/Delhi rules and Sep 2026 amendment, exact participant eligibility and allocation changes, real quotations and tariffs, roof rights, financing offers, user consent, RWA willingness-to-pay and MSME acquisition cost. Mixed household/MSME shared-credit projects are NOT presumed lawful.
