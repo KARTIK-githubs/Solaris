@@ -1,54 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import { ReportExportModal } from '../components/common/ReportExportModal';
 
 export const CreditAllocationPage: React.FC = () => {
-  const { isConsentModalOpen, setIsConsentModalOpen } = useApp();
+  const { 
+    community, 
+    optimisationResult, 
+    isConsentModalOpen, 
+    setIsConsentModalOpen 
+  } = useApp();
   const [selectedFlat, setSelectedFlat] = useState<string | null>(null);
   const [showReconciliation, setShowReconciliation] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
 
-  const allocationNodes = [
-    {
-      flat: '301',
-      tower: 'Tower A',
-      owner: 'Sunil & Rohini Rao',
-      wing: 'Top Floor Corner',
-      tier: 'Tier A',
-      sharePct: 40,
-      kwh: 1928,
-      sanctionedKw: 6.0,
-      consumptionKwh: 750,
-      tariffBenefitInr: 11568,
-      color: '#103d35'
-    },
-    {
-      flat: '204',
-      tower: 'Tower B',
-      owner: 'Capt. Arvind Verma',
-      wing: 'Middle West Wing',
-      tier: 'Tier B',
-      sharePct: 35,
-      kwh: 1687,
-      sanctionedKw: 5.0,
-      consumptionKwh: 610,
-      tariffBenefitInr: 10122,
-      color: '#006b57'
-    },
-    {
-      flat: '102',
-      tower: 'Tower C',
-      owner: 'Dr. Ananya Sen',
-      wing: 'Ground Floor East',
-      tier: 'Tier C',
-      sharePct: 25,
-      kwh: 1205,
-      sanctionedKw: 4.0,
-      consumptionKwh: 420,
-      tariffBenefitInr: 7230,
-      color: '#f6bd4f'
-    }
-  ];
+  // Merge optimizer results with community member details
+  const allocationNodes = useMemo((): Array<{
+    flat: string;
+    tower: string;
+    owner: string;
+    wing: string;
+    tier: string;
+    sharePct: number;
+    kwh: number;
+    sanctionedKw: number;
+    consumptionKwh: number;
+    tariffBenefitInr: number;
+    color: string;
+  }> => {
+    const tierColors: Record<string, string> = {
+      'Tier A': '#103d35',
+      'Tier B': '#006b57',
+      'Tier C': '#f6bd4f'
+    };
+
+    return optimisationResult.selectedMembers
+      .map((optMember) => {
+        const communityMember = community.members.find(m => m.id === optMember.memberId);
+        if (!communityMember) return null;
+
+        const allocatedKwh = Math.round(optMember.shareKw * 118 * 30); // kWp * kWh/kWp/mo
+        const tariffBenefitInr = optMember.monthlySavingsInr;
+
+        return {
+          flat: communityMember.flatNumber.replace('Flat ', ''),
+          tower: communityMember.tower,
+          owner: communityMember.ownerName,
+          wing: communityMember.flatNumber.includes('301') ? 'Top Floor Corner' :
+                communityMember.flatNumber.includes('204') ? 'Middle West Wing' : 'Ground Floor East',
+          tier: communityMember.tier,
+          sharePct: Math.round(optMember.sharePercentage * 10) / 10,
+          kwh: allocatedKwh,
+          sanctionedKw: communityMember.sanctionedLoadKw,
+          consumptionKwh: communityMember.monthlyConsumptionKwh,
+          tariffBenefitInr,
+          color: tierColors[communityMember.tier] || '#103d35'
+        };
+      })
+      .filter((node): node is NonNullable<typeof node> => node !== null);
+  }, [optimisationResult, community.members]);
 
   return (
     <div className="flex flex-col w-full pb-16 max-w-3xl mx-auto px-4 space-y-4 animate-in fade-in">
@@ -94,7 +103,7 @@ export const CreditAllocationPage: React.FC = () => {
         {/* Big Metric */}
         <div className="flex items-baseline gap-2">
           <span className="font-headline text-3xl sm:text-4xl text-white font-bold tracking-tight leading-none">
-            4,820
+            {allocationNodes.reduce((sum, n) => sum + n.kwh, 0).toLocaleString('en-IN')}
           </span>
           <span className="text-sm text-[#a3d0c4]">kWh / month</span>
         </div>
@@ -112,7 +121,7 @@ export const CreditAllocationPage: React.FC = () => {
           <div className="bg-white/5 rounded-lg p-2.5 flex flex-col border border-white/5">
             <span className="text-[10px] text-[#a3d0c4]">Active Units</span>
             <div className="flex items-center gap-1 mt-0.5">
-              <span className="font-headline text-base font-bold text-white">8 Flats</span>
+              <span className="font-headline text-base font-bold text-white">{allocationNodes.length} Flats</span>
             </div>
             <span className="text-[10px] text-[#a3d0c4] mt-0.5">RWA Block 4</span>
           </div>
@@ -120,7 +129,7 @@ export const CreditAllocationPage: React.FC = () => {
           <div className="bg-white/5 rounded-lg p-2.5 flex flex-col border border-white/5">
             <span className="text-[10px] text-[#a3d0c4]">Est. Yield</span>
             <div className="flex items-center gap-1 mt-0.5">
-              <span className="font-headline text-base font-bold text-[#f6bd4f]">₹28,920</span>
+              <span className="font-headline text-base font-bold text-[#f6bd4f]">₹{allocationNodes.reduce((sum, n) => sum + n.tariffBenefitInr, 0).toLocaleString('en-IN')}</span>
             </div>
             <span className="text-[10px] text-[#a3d0c4] mt-0.5">Combined</span>
           </div>
@@ -164,47 +173,29 @@ export const CreditAllocationPage: React.FC = () => {
                 <line x1="125" x2="135.2" y1="35" y2="24.8" />
               </g>
 
-              {/* Segment 1: Flat 301 (40%) */}
-              <circle
-                onClick={() => setSelectedFlat('301')}
-                className="transition-all duration-300 cursor-pointer hover:stroke-[#006b57]"
-                cx="80"
-                cy="80"
-                fill="none"
-                r="50"
-                stroke="#103d35"
-                strokeDasharray="125.66 314.15"
-                strokeDashoffset="0"
-                strokeWidth={selectedFlat === '301' ? '20' : '16'}
-              />
-
-              {/* Segment 2: Flat 204 (35%) */}
-              <circle
-                onClick={() => setSelectedFlat('204')}
-                className="transition-all duration-300 cursor-pointer hover:stroke-[#9af4d8]"
-                cx="80"
-                cy="80"
-                fill="none"
-                r="50"
-                stroke="#006b57"
-                strokeDasharray="109.95 314.15"
-                strokeDashoffset="-125.66"
-                strokeWidth={selectedFlat === '204' ? '20' : '16'}
-              />
-
-              {/* Segment 3: Flat 102 (25%) */}
-              <circle
-                onClick={() => setSelectedFlat('102')}
-                className="transition-all duration-300 cursor-pointer hover:stroke-[#ffdea7]"
-                cx="80"
-                cy="80"
-                fill="none"
-                r="50"
-                stroke="#f6bd4f"
-                strokeDasharray="78.54 314.15"
-                strokeDashoffset="-235.61"
-                strokeWidth={selectedFlat === '102' ? '20' : '16'}
-              />
+              {allocationNodes.map((node, index) => {
+                const circumference = 2 * Math.PI * 50; // 314.15
+                const dashArray = (node.sharePct / 100) * circumference;
+                const dashOffset = -allocationNodes
+                  .slice(0, index)
+                  .reduce((sum, n) => sum + (n.sharePct / 100) * circumference, 0);
+                
+                return (
+                  <circle
+                    key={node.flat}
+                    onClick={() => setSelectedFlat(node.flat)}
+                    className="transition-all duration-300 cursor-pointer hover:stroke-[#006b57]"
+                    cx="80"
+                    cy="80"
+                    fill="none"
+                    r="50"
+                    stroke={node.color}
+                    strokeDasharray={`${dashArray} ${circumference}`}
+                    strokeDashoffset={dashOffset}
+                    strokeWidth={selectedFlat === node.flat ? '20' : '16'}
+                  />
+                );
+              })}
 
               <circle cx="80" cy="80" fill="#f6bd4f" r="26" />
               <circle cx="80" cy="80" fill="#ffffff" r="10" />
@@ -228,15 +219,22 @@ export const CreditAllocationPage: React.FC = () => {
 
         {/* Multi-Bar Representation */}
         <div className="space-y-1.5">
-          <div className="w-full h-3 rounded-full overflow-hidden flex bg-[#e2f0f9]">
-            <div className="h-full bg-[#103d35] transition-all" style={{ width: '40%' }}></div>
-            <div className="h-full bg-[#006b57] transition-all" style={{ width: '35%' }}></div>
-            <div className="h-full bg-[#f6bd4f] transition-all" style={{ width: '25%' }}></div>
+          <div className="w-full h-3 rounded-full overflow-hidden flex bg-[#e2f0f9">
+            {allocationNodes.map((node) => (
+              <div
+                key={node.flat}
+                className="h-full transition-all"
+                style={{ 
+                  width: `${node.sharePct}%`,
+                  backgroundColor: node.color 
+                }}
+              ></div>
+            ))}
           </div>
           <div className="flex items-center justify-between text-[11px] text-[#404846] font-mono px-1">
             <span>0 kWh</span>
-            <span>2,410 kWh</span>
-            <span>4,820 kWh</span>
+            <span>{Math.round(allocationNodes.reduce((sum, n) => sum + n.kwh, 0) / 2).toLocaleString('en-IN')} kWh</span>
+            <span>{allocationNodes.reduce((sum, n) => sum + n.kwh, 0).toLocaleString('en-IN')} kWh</span>
           </div>
         </div>
 
