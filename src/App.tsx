@@ -14,13 +14,9 @@ import { RegulationsPage } from './pages/RegulationsPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { OptimiserPage } from './pages/OptimiserPage';
 import { CreditAllocationPage } from './pages/CreditAllocationPage';
-import { PartnersPage } from './pages/PartnersPage';
 import { MonitoringPage } from './pages/MonitoringPage';
 import { ReportsPage } from './pages/ReportsPage';
-import { NotificationsPage } from './pages/NotificationsPage';
-import { SettingsPage } from './pages/SettingsPage';
 import { AdminPage } from './pages/AdminPage';
-import { LoginPage } from './pages/LoginPage';
 
 const RouterView: React.FC = () => {
   const { currentPath } = useApp();
@@ -43,20 +39,12 @@ const RouterView: React.FC = () => {
         return 'Smart Affordability Optimiser';
       case '/credit-allocation':
         return 'Transparent Credit Allocation';
-      case '/partners':
-        return 'Installers & Financing Network';
       case '/monitoring':
-        return 'Solar Telemetry & Monitoring';
+        return 'Synthetic O&M Monitoring';
       case '/reports':
         return 'Reports & Statutory Statements';
-      case '/notifications':
-        return 'Notifications Center';
-      case '/settings':
-        return 'Connection & Ledger Settings';
       case '/admin':
-        return 'Administrative & Audit Console';
-      case '/login':
-        return 'Demo Role Switcher';
+        return 'Rules & Audit Ledger';
       default:
         if (currentPath.startsWith('/community')) {
           return 'Community Solar Workspace';
@@ -83,20 +71,12 @@ const RouterView: React.FC = () => {
         return <OptimiserPage />;
       case '/credit-allocation':
         return <CreditAllocationPage />;
-      case '/partners':
-        return <PartnersPage />;
       case '/monitoring':
         return <MonitoringPage />;
       case '/reports':
         return <ReportsPage />;
-      case '/notifications':
-        return <NotificationsPage />;
-      case '/settings':
-        return <SettingsPage />;
       case '/admin':
         return <AdminPage />;
-      case '/login':
-        return <LoginPage />;
       default:
         if (currentPath.startsWith('/community')) {
           return <CommunityPage />;

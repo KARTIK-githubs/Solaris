@@ -12,14 +12,10 @@ export const Sidebar: React.FC = () => {
     { label: 'Smart Optimiser', path: '/optimiser', icon: 'bolt', category: 'Planning' },
     { label: 'Community Workspace', path: '/community', icon: 'groups', category: 'Collaboration' },
     { label: 'Credit Allocation', path: '/credit-allocation', icon: 'pie_chart', category: 'Collaboration' },
-    { label: 'Installers & Financing', path: '/partners', icon: 'handshake', category: 'Execution' },
     { label: 'Solar Monitoring', path: '/monitoring', icon: 'query_stats', category: 'Operations' },
     { label: 'Reports & Export', path: '/reports', icon: 'description', category: 'Operations' },
     { label: 'Onboarding Wizard', path: '/onboarding', icon: 'assignment_turned_in', category: 'Account' },
-    { label: 'Notifications', path: '/notifications', icon: 'notifications', category: 'Account' },
-    { label: 'Settings & DISCOM', path: '/settings', icon: 'tune', category: 'Account' },
     { label: 'Admin & Audit Console', path: '/admin', icon: 'admin_panel_settings', category: 'Governance' },
-    { label: 'Demo Role Switcher', path: '/login', icon: 'switch_account', category: 'Governance' },
   ];
 
   return (

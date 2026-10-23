@@ -210,12 +210,3 @@ export interface AuditLogItem {
   category: 'regulatory' | 'financial' | 'consent' | 'system';
 }
 
-export interface NotificationItem {
-  id: string;
-  title: string;
-  message: string;
-  timestamp: string;
-  type: 'action' | 'info' | 'success' | 'alert';
-  read: boolean;
-  actionUrl?: string;
-}

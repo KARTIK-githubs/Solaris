@@ -11,16 +11,11 @@ export const Header: React.FC<HeaderProps> = ({ subtitle = 'Main Dashboard' }) =
     currentUser, 
     currentRole, 
     switchRole, 
-    notifications, 
-    markAllNotificationsRead, 
     navigateTo,
     setIsSidebarOpen 
   } = useApp();
 
   const [showRoleMenu, setShowRoleMenu] = useState(false);
-  const [showNotifMenu, setShowNotifMenu] = useState(false);
-
-  const unreadCount = notifications.filter(n => !n.read).length;
 
   const roleOptions: { role: UserRole; label: string; desc: string; icon: string }[] = [
     { role: 'household', label: 'Rohit Rao (Resident)', desc: 'Apartment Flat 301 · RWA Member', icon: 'home' },
@@ -70,16 +65,13 @@ export const Header: React.FC<HeaderProps> = ({ subtitle = 'Main Dashboard' }) =
           </div>
         </div>
 
-        {/* Right Actions: Role Selector, Notifications, User Avatar */}
+        {/* Right Actions: Role Selector, User Avatar */}
         <div className="flex items-center gap-1.5 sm:gap-2">
 
           {/* Quick Demo Role Switcher Button */}
           <div className="relative">
             <button
-              onClick={() => {
-                setShowRoleMenu(!showRoleMenu);
-                setShowNotifMenu(false);
-              }}
+              onClick={() => setShowRoleMenu(!showRoleMenu)}
               className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#e2f0f9] hover:bg-[#dceaf4] text-[#002620] text-xs font-semibold transition-colors"
               title="Switch demo role persona"
             >
@@ -122,74 +114,9 @@ export const Header: React.FC<HeaderProps> = ({ subtitle = 'Main Dashboard' }) =
             )}
           </div>
 
-          {/* Notifications Button & Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => {
-                setShowNotifMenu(!showNotifMenu);
-                setShowRoleMenu(false);
-              }}
-              aria-label="Notifications"
-              className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#404846] hover:text-[#006b57] hover:bg-[#e2f0f9] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[22px]">notifications</span>
-              {unreadCount > 0 && (
-                <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-[#f6bd4f] ring-2 ring-[#f4faff]"></span>
-              )}
-            </button>
-
-            {showNotifMenu && (
-              <div className="absolute right-0 top-12 w-80 sm:w-96 bg-white rounded-xl shadow-xl border border-[#c0c8c5]/40 py-2 z-50 animate-in fade-in zoom-in-95">
-                <div className="px-3.5 py-2 border-b border-[#e2f0f9] flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#002620] uppercase tracking-wider">Notifications</span>
-                  {unreadCount > 0 && (
-                    <button
-                      onClick={markAllNotificationsRead}
-                      className="text-[11px] text-[#006b57] font-semibold hover:underline"
-                    >
-                      Mark all as read
-                    </button>
-                  )}
-                </div>
-                <div className="py-1 max-h-72 overflow-y-auto divide-y divide-[#e2f0f9]">
-                  {notifications.map((n) => (
-                    <div 
-                      key={n.id} 
-                      onClick={() => {
-                        if (n.actionUrl) navigateTo(n.actionUrl);
-                        setShowNotifMenu(false);
-                      }}
-                      className={`px-3.5 py-2.5 cursor-pointer hover:bg-[#f4faff] transition-colors ${!n.read ? 'bg-[#e2f0f9]/40' : ''}`}
-                    >
-                      <div className="flex items-center justify-between gap-1">
-                        <span className="text-xs font-bold text-[#002620]">{n.title}</span>
-                        <span className="text-[10px] text-[#717976]">{n.timestamp}</span>
-                      </div>
-                      <p className="text-[11px] text-[#404846] mt-0.5 line-clamp-2">{n.message}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="p-2 border-t border-[#e2f0f9] text-center">
-                  <button 
-                    onClick={() => {
-                      navigateTo('/notifications');
-                      setShowNotifMenu(false);
-                    }}
-                    className="text-xs text-[#006b57] font-semibold hover:underline"
-                  >
-                    View All Notifications
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-
           {/* User Profile Avatar */}
           <div 
-            onClick={() => {
-              setShowRoleMenu(!showRoleMenu);
-              setShowNotifMenu(false);
-            }}
+            onClick={() => setShowRoleMenu(!showRoleMenu)}
             className="w-9 h-9 flex items-center justify-center cursor-pointer"
             title={`${currentUser.name} (${currentUser.roleTitle})`}
           >

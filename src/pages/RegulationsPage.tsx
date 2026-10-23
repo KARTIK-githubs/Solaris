@@ -249,13 +249,6 @@ export const RegulationsPage: React.FC = () => {
             </span>
           </div>
 
-          <button
-            onClick={() => navigateTo('/settings')}
-            className="w-full h-10 rounded-lg bg-[#e8f6ff] text-[#002620] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#dceaf4] transition-colors"
-          >
-            <span className="material-symbols-outlined text-[16px]">device_hub</span>
-            <span>Map Service Connections</span>
-          </button>
         </article>
 
         {/* Card 4: P2P */}

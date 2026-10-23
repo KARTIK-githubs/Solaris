@@ -113,12 +113,6 @@ export const OnboardingPage: React.FC = () => {
               <span className="text-xs font-semibold text-[#101d24]">{currentUser.roleTitle}</span>
             </div>
           </div>
-          <button
-            onClick={() => navigateTo('/login')}
-            className="px-2.5 py-1 rounded-full bg-[#e2f0f9] text-[#101d24] text-[11px] font-semibold hover:bg-[#dceaf4]"
-          >
-            Change
-          </button>
         </div>
 
         {/* DISCOM Connection Card */}

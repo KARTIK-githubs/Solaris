@@ -4,8 +4,7 @@ import {
   RegulatoryRule, 
   PartnerQuote, 
   MaintenanceTicket, 
-  AuditLogItem, 
-  NotificationItem 
+  AuditLogItem 
 } from '../types';
 
 export const DEMO_USERS: Record<string, UserProfile> = {
@@ -775,32 +774,3 @@ export const INITIAL_AUDIT_LOGS: AuditLogItem[] = [
   }
 ];
 
-export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
-  {
-    id: 'notif_1',
-    title: 'Digitally Sign Member Consent for 12 kWp Pod',
-    message: 'RWA Block C has reached 10 participating flats. Review allocation distribution and authorize single-point BRPL application.',
-    timestamp: '2 hrs ago',
-    type: 'action',
-    read: false,
-    actionUrl: '/community'
-  },
-  {
-    id: 'notif_2',
-    title: 'Monsoon Tilt Loss Auto-Calibrated',
-    message: 'Solaris engine calibrated seasonal cloud losses to 0.4% with optimal inverter tracking curve.',
-    timestamp: 'Yesterday',
-    type: 'info',
-    read: false,
-    actionUrl: '/dashboard'
-  },
-  {
-    id: 'notif_3',
-    title: 'Transformer Feasibility Study Passed',
-    message: 'BSES Rajdhani approved feeder capacity for Gulmohar Enclave RWA cohort.',
-    timestamp: '2 days ago',
-    type: 'success',
-    read: true,
-    actionUrl: '/regulations'
-  }
-];

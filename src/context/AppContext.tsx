@@ -4,7 +4,6 @@ import {
   CommunityProject, 
   CommunityMember, 
   AuditLogItem, 
-  NotificationItem, 
   UserRole,
   OptimisationParams,
   OptimisationResult
@@ -12,8 +11,7 @@ import {
 import { 
   DEMO_USERS, 
   INITIAL_COMMUNITY, 
-  INITIAL_AUDIT_LOGS, 
-  INITIAL_NOTIFICATIONS 
+  INITIAL_AUDIT_LOGS 
 } from '../data/mockData';
 import { runAffordabilityOptimiser } from '../utils/optimiserEngine';
 
@@ -40,10 +38,6 @@ interface AppContextType {
   optimisationResult: OptimisationResult;
   rerunOptimiser: () => void;
 
-  notifications: NotificationItem[];
-  markNotificationAsRead: (id: string) => void;
-  markAllNotificationsRead: () => void;
-
   auditLogs: AuditLogItem[];
   addAuditLog: (action: string, details: string, category?: AuditLogItem['category']) => void;
 
@@ -57,8 +51,7 @@ const STORAGE_KEYS = {
   ROLE: 'solaris_role',
   USER: 'solaris_user',
   COMMUNITY: 'solaris_community',
-  LOGS: 'solaris_logs',
-  NOTIFS: 'solaris_notifs'
+  LOGS: 'solaris_logs'
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -120,19 +113,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isConsentModalOpen, setIsConsentModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // 5. Notifications & Audit Logs
-  const [notifications, setNotifications] = useState<NotificationItem[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.NOTIFS);
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return INITIAL_NOTIFICATIONS;
-  });
-
+  // 5. Audit Logs
   const [auditLogs, setAuditLogs] = useState<AuditLogItem[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.LOGS);
     if (saved) {
@@ -278,14 +259,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setIsConsentModalOpen(false);
   };
 
-  const markNotificationAsRead = (id: string) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
-  };
-
-  const markAllNotificationsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-  };
-
   const addAuditLog = (action: string, details: string, category: AuditLogItem['category'] = 'system') => {
     const newLog: AuditLogItem = {
       id: `log_${Date.now()}`,
@@ -325,9 +298,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setOptimisationParams,
         optimisationResult,
         rerunOptimiser,
-        notifications,
-        markNotificationAsRead,
-        markAllNotificationsRead,
         auditLogs,
         addAuditLog,
         isSidebarOpen,
