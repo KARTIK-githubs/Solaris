@@ -28,6 +28,7 @@ export interface UserProfile {
   communityId?: string;
   consentSigned?: boolean;
   consentDate?: string;
+  onboardingCompleted?: boolean;
 }
 
 export interface CommunityMember {

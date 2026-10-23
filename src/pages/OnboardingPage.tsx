@@ -34,13 +34,14 @@ export const OnboardingPage: React.FC = () => {
       monthlyConsumptionKwh: estKwh,
       housingType,
       terraceAccess,
-      primaryGoal: solarGoal
+      primaryGoal: solarGoal,
+      onboardingCompleted: true
     });
-    addAuditLog('Onboarding Profile Saved', `Updated configuration for CA #${caNumber} with ₹${monthlyBill}/mo bill.`, 'system');
+    addAuditLog('Onboarding Completed', `Profile configured for CA #${caNumber} with ₹${monthlyBill}/mo bill.`, 'system');
 
     setTimeout(() => {
       setIsSubmitting(false);
-      navigateTo('/assessment');
+      navigateTo('/dashboard');
     }, 400);
   };
 

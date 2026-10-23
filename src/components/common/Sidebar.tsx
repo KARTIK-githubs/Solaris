@@ -13,7 +13,6 @@ export const Sidebar: React.FC = () => {
     { label: 'Credit Allocation', path: '/credit-allocation', icon: 'pie_chart', category: 'Collaboration' },
     { label: 'Solar Monitoring', path: '/monitoring', icon: 'query_stats', category: 'Operations' },
     { label: 'Reports & Export', path: '/reports', icon: 'description', category: 'Operations' },
-    { label: 'Onboarding Wizard', path: '/onboarding', icon: 'assignment_turned_in', category: 'Account' },
     { label: 'Admin & Audit Console', path: '/admin', icon: 'admin_panel_settings', category: 'Governance' },
   ];
 

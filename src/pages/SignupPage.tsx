@@ -28,7 +28,8 @@ export const SignupPage: React.FC = () => {
       setError(result.error || 'Unable to create your account.');
       return;
     }
-    navigateTo('/dashboard');
+    // Redirect to onboarding after successful signup
+    navigateTo('/onboarding');
   };
 
   return (

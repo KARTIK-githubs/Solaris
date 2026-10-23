@@ -21,16 +21,23 @@ import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 
 const RouterView: React.FC = () => {
-  const { currentPath, isAuthenticated, navigateTo } = useApp();
+  const { currentPath, isAuthenticated, navigateTo, currentUser } = useApp();
   const isPublicPath = currentPath === '/' || currentPath === '/login' || currentPath === '/signup';
+  const hasCompletedOnboarding = currentUser?.onboardingCompleted === true;
 
   useEffect(() => {
     if (!isAuthenticated && !isPublicPath) {
       navigateTo('/');
     } else if (isAuthenticated && (currentPath === '/login' || currentPath === '/signup')) {
       navigateTo('/dashboard');
+    } else if (isAuthenticated && !hasCompletedOnboarding && currentPath !== '/onboarding') {
+      // Redirect to onboarding if not completed
+      navigateTo('/onboarding');
+    } else if (isAuthenticated && hasCompletedOnboarding && currentPath === '/onboarding') {
+      // Redirect away from onboarding if already completed
+      navigateTo('/dashboard');
     }
-  }, [currentPath, isAuthenticated, isPublicPath]);
+  }, [currentPath, isAuthenticated, isPublicPath, hasCompletedOnboarding, navigateTo]);
 
   const getSubtitle = () => {
     switch (currentPath) {
