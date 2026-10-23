@@ -17,21 +17,22 @@ export const Sidebar: React.FC = () => {
     { label: 'Admin & Audit Console', path: '/admin', icon: 'admin_panel_settings', category: 'Governance' },
   ];
 
+  if (!isSidebarOpen) return null;
+
   return (
     <>
-      {/* Backdrop for mobile drawer */}
-      {isSidebarOpen && (
-        <div 
-          onClick={() => setIsSidebarOpen(false)}
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 md:hidden animate-in fade-in"
-        />
-      )}
+      {/* Backdrop */}
+      <div 
+        onClick={() => setIsSidebarOpen(false)}
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-in fade-in"
+        aria-hidden="true"
+      />
 
-      {/* Drawer */}
+      {/* Sidebar Drawer - overlays content on all screen sizes */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 w-72 bg-[#f4faff] border-r border-[#e2f0f9] z-50 flex flex-col transition-transform duration-300 ease-in-out md:translate-x-0 ${
-          isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:hidden'
-        }`}
+        className="fixed top-0 bottom-0 left-0 w-72 bg-[#f4faff] border-r border-[#e2f0f9] z-50 flex flex-col shadow-2xl animate-in slide-in-from-left"
+        role="navigation"
+        aria-label="Main navigation"
       >
         {/* Sidebar Header */}
         <div className="h-16 px-4 border-b border-[#e2f0f9] flex items-center justify-between">
@@ -58,7 +59,8 @@ export const Sidebar: React.FC = () => {
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-[#404846] hover:bg-[#e2f0f9] md:hidden"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-[#404846] hover:bg-[#e2f0f9] transition-colors"
+            aria-label="Close sidebar"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>

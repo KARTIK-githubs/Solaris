@@ -108,10 +108,10 @@ const RouterView: React.FC = () => {
       {showAppShell ? (
         <>
           <Header subtitle={getSubtitle()} />
-          <Sidebar />
-          <main className="flex-1 w-full pt-20 pb-20 md:pb-8 md:pl-72">
+          <main className="flex-1 w-full pt-20 pb-20 md:pb-8">
             {content}
           </main>
+          <Sidebar />
           <BottomNav />
           <ConsentModal />
         </>
