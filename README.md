@@ -3,6 +3,7 @@
 An intelligent, regulation-aware solar adoption, community solar planning, affordability optimisation, and transparent credit allocation platform designed for India, starting with Delhi (BSES Rajdhani Power Limited, BSES Yamuna Power Limited, Tata Power DDL).
 
 **Primary SDG Alignment:**
+
 - **SDG 8** — Decent Work and Economic Growth
 - **SDG 9** — Industry, Innovation, and Infrastructure
 - Supporting **SDG 7** — Affordable and Clean Energy
@@ -22,31 +23,31 @@ An intelligent, regulation-aware solar adoption, community solar planning, affor
 
 ## Supported Roles
 
-| Role | Demo User | Context |
-|------|-----------|---------|
-| Household / Resident | Rohit Rao | Flat 301, Pocket 2 RWA, 5.0 kW Sanctioned load |
-| MSME / Business Owner | Alok Gupta | Shree Fabric Mills, 25.0 kW Sanctioned load, accelerated depreciation |
-| RWA / Community Coordinator | Anita Verma | General Secretary, Gulmohar Enclave RWA |
+| Role                        | Demo User   | Context                                                               |
+| --------------------------- | ----------- | --------------------------------------------------------------------- |
+| Household / Resident        | Rohit Rao   | Flat 301, Pocket 2 RWA, 5.0 kW Sanctioned load                        |
+| MSME / Business Owner       | Alok Gupta  | Shree Fabric Mills, 25.0 kW Sanctioned load, accelerated depreciation |
+| RWA / Community Coordinator | Anita Verma | General Secretary, Gulmohar Enclave RWA                               |
 
 ---
 
 ## Implemented Routes & Features
 
-| Route | Feature | Status |
-|-------|---------|--------|
-| `/` | Public Landing Page | **Complete** |
-| `/login` | Email/password login | **Complete** |
-| `/signup` | Account creation → onboarding | **Complete** |
-| `/onboarding` | 5-step profile wizard (DISCOM, CA, bill, housing, terrace, solar goal) | **Complete** |
-| `/dashboard` | Main cockpit (KPIs, generation chart, consent banner, activity feed) | **Complete** |
-| `/assessment` | Solar feasibility calculator (sizing, subsidy, payback, 3-model matrix) | **Complete** |
-| `/regulations` | Regulatory checker (Residential/MSME tabs, VNM/CAPEX/GNM/P2P) | **Complete** |
-| `/community` | Community workspace (roster, governance, timeline, terrace envelope) | **Complete** |
-| `/optimiser` | Smart affordability optimiser (linear solver, stress tests, scenario tabs) | **Complete** |
-| `/credit-allocation` | Transparent allocation ledger (radial dial, node cards, lifecycle, reconciliation) | **Complete** |
-| `/monitoring` | Synthetic O&M panel (inverter, generation, performance ratio, alerts) | **Complete** |
-| `/reports` | Exportable statements (feasibility, community, optimisation, allocation, regulatory, maintenance) | **Complete** |
-| `/admin` | Read-only audit logs & statutory rules | **Complete** |
+| Route                | Feature                                                                                           | Status       |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------ |
+| `/`                  | Public Landing Page                                                                               | **Complete** |
+| `/login`             | Email/password login                                                                              | **Complete** |
+| `/signup`            | Account creation → onboarding                                                                     | **Complete** |
+| `/onboarding`        | 5-step profile wizard (DISCOM, CA, bill, housing, terrace, solar goal)                            | **Complete** |
+| `/dashboard`         | Main cockpit (KPIs, generation chart, consent banner, activity feed)                              | **Complete** |
+| `/assessment`        | Solar feasibility calculator (sizing, subsidy, payback, 3-model matrix)                           | **Complete** |
+| `/regulations`       | Regulatory checker (Residential/MSME tabs, VNM/CAPEX/GNM/P2P)                                     | **Complete** |
+| `/community`         | Community workspace (roster, governance, timeline, terrace envelope)                              | **Complete** |
+| `/optimiser`         | Smart affordability optimiser (linear solver, stress tests, scenario tabs)                        | **Complete** |
+| `/credit-allocation` | Transparent allocation ledger (radial dial, node cards, lifecycle, reconciliation)                | **Complete** |
+| `/monitoring`        | Synthetic O&M panel (inverter, generation, performance ratio, alerts)                             | **Complete** |
+| `/reports`           | Exportable statements (feasibility, community, optimisation, allocation, regulatory, maintenance) | **Complete** |
+| `/admin`             | Read-only audit logs & statutory rules                                                            | **Complete** |
 
 ---
 
@@ -135,12 +136,14 @@ src/
 ## Key Implementation Details
 
 ### Authentication
+
 - LocalStorage-only (no backend)
 - SHA-256 via Web Crypto API (fallback FNV-1a)
 - Keys: `solaris_auth_accounts`, `solaris_auth_session`, `solaris_user`, `solaris_role`, `solaris_community`, `solaris_logs`
 - Onboarding required **only after signup** (flag `needsOnboarding`)
 
 ### Optimiser (Deterministic Linear Program)
+
 - Runs client-side in <10ms via `useEffect` in AppContext
 - Maximizes participants with net positive savings
 - Constraints: budget ceiling, EMI cap (₹4,500/mo), DERC transformer limits, sanctioned load
@@ -148,6 +151,7 @@ src/
 - Outputs: share %, kWp, kWh, EMI, net benefit, resilience rating
 
 ### Accessibility (WCAG 2.1 AA)
+
 - Contrast ≥ 4.5:1 (muted text #5f6865)
 - Focus rings on all interactive elements
 - ARIA roles on tabs, accordions, menus
@@ -167,7 +171,6 @@ Solaris provides regulatory planning guidance and algorithmic simulation models 
 ## Hackathon Metadata
 
 - **Event:** Prompt-ae-thon
-- **Built with:** opencode + nemotron-3-ultra-free
+- **Built with:** opencode
 - **Design System:** ui-ux-pro-max skill (Glassmorphism + Community/Forum Landing)
-- **Repository:** [GitHub](https://github.com/your-repo/solaris)
-- **Live Demo:** [Vercel](https://solaris.vercel.app) (after deployment)
+- **Repository:** [GitHub](https://github.com/aryandas2911/Solaris)
