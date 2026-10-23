@@ -2,11 +2,10 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 
 export const Sidebar: React.FC = () => {
-  const { currentPath, navigateTo, isSidebarOpen, setIsSidebarOpen, currentUser } = useApp();
+  const { currentPath, navigateTo, isSidebarOpen, setIsSidebarOpen, currentUser, logOut } = useApp();
 
   const primaryRoutes = [
     { label: 'Main Dashboard', path: '/dashboard', icon: 'dashboard', category: 'Core' },
-    { label: 'Public Showcase', path: '/', icon: 'public', category: 'Core' },
     { label: 'Solar Assessment', path: '/assessment', icon: 'calculate', category: 'Planning' },
     { label: 'Regulatory Checker', path: '/regulations', icon: 'gavel', category: 'Planning' },
     { label: 'Smart Optimiser', path: '/optimiser', icon: 'bolt', category: 'Planning' },
@@ -116,7 +115,14 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Footer info */}
-        <div className="p-3 border-t border-[#e2f0f9] bg-[#f4faff]">
+        <div className="p-3 border-t border-[#e2f0f9] bg-[#f4faff] space-y-2">
+          <button
+            onClick={logOut}
+            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-bold text-[#93000a] hover:bg-[#ffdad6]/40 transition-colors"
+          >
+            <span className="material-symbols-outlined text-[16px]">logout</span>
+            <span>Log out</span>
+          </button>
           <div className="flex items-center justify-between text-[11px] text-[#717976]">
             <span>Delhi DERC VNM 2024</span>
             <span className="text-[#006b57] font-medium font-mono">v2.4 LTS</span>

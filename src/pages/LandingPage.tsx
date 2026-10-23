@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 
 export const LandingPage: React.FC = () => {
-  const { navigateTo } = useApp();
+  const { navigateTo, isAuthenticated } = useApp();
   const [activeAudienceTab, setActiveAudienceTab] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -12,7 +12,42 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full pb-16 max-w-4xl mx-auto">
-      
+      {/* Public Navigation */}
+      <header className="px-4 pt-4 pb-1 flex items-center justify-between gap-3">
+        <button onClick={() => navigateTo('/')} className="flex items-center gap-2.5">
+          <span className="w-9 h-9 rounded-xl bg-[#006b57] text-white flex items-center justify-center shadow-sm">
+            <span className="material-symbols-outlined text-[20px]">solar_power</span>
+          </span>
+          <span className="font-headline text-lg font-bold text-[#002620] tracking-tight">SOLARIS</span>
+        </button>
+
+        <div className="flex items-center gap-2">
+          {isAuthenticated ? (
+            <button
+              onClick={() => navigateTo('/dashboard')}
+              className="px-3.5 py-2 rounded-lg bg-[#006b57] text-white text-xs font-bold hover:bg-[#002620] transition-colors"
+            >
+              Open Dashboard
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => navigateTo('/login')}
+                className="px-3 py-2 rounded-lg text-[#006b57] text-xs font-bold hover:bg-[#e2f0f9] transition-colors"
+              >
+                Log in
+              </button>
+              <button
+                onClick={() => navigateTo('/signup')}
+                className="px-3.5 py-2 rounded-lg bg-[#006b57] text-white text-xs font-bold hover:bg-[#002620] transition-colors"
+              >
+                Sign up
+              </button>
+            </>
+          )}
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="px-4 pt-4 pb-6 flex flex-col gap-5">
         <div className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-[#9af4d8]/50 text-[#006b57] text-xs font-semibold shadow-sm">
@@ -32,18 +67,20 @@ export const LandingPage: React.FC = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 pt-1">
           <button
-            onClick={() => navigateTo('/onboarding')}
+            onClick={() => navigateTo(isAuthenticated ? '/dashboard' : '/signup')}
             className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-3 px-5 rounded-lg bg-[#006b57] text-white font-headline text-sm font-semibold shadow-md active:scale-[0.99] hover:bg-[#002620] transition-all"
           >
-            <span>Explore My Solar Potential</span>
+            <span>{isAuthenticated ? 'Open My Dashboard' : 'Get Started Free'}</span>
             <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
           <button
-            onClick={() => navigateTo('/assessment')}
+            onClick={() => navigateTo(isAuthenticated ? '/assessment' : '/login')}
             className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-3 px-5 rounded-lg bg-[#e2f0f9] text-[#002620] font-headline text-sm font-semibold hover:bg-[#dceaf4] transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px]">play_circle</span>
-            <span>See How Solaris Works</span>
+            <span className="material-symbols-outlined text-[18px]">
+              {isAuthenticated ? 'calculate' : 'login'}
+            </span>
+            <span>{isAuthenticated ? 'Run Solar Assessment' : 'Log In'}</span>
           </button>
         </div>
 
@@ -473,10 +510,10 @@ export const LandingPage: React.FC = () => {
             </p>
           </div>
           <button
-            onClick={() => navigateTo('/onboarding')}
+            onClick={() => navigateTo(isAuthenticated ? '/onboarding' : '/signup')}
             className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#006b57] text-white font-headline text-sm font-bold shadow-md active:scale-[0.99] hover:bg-[#002620] transition-transform"
           >
-            Get Started with Your CA Number
+            {isAuthenticated ? 'Get Started with Your CA Number' : 'Create Your Free Account'}
           </button>
           <div className="flex items-center gap-1.5 text-[#404846] text-[11px] justify-center">
             <span className="material-symbols-outlined text-[14px] text-[#006b57]">verified</span>

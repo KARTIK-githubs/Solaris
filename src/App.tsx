@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { BottomNav } from './components/common/BottomNav';
@@ -17,9 +17,20 @@ import { CreditAllocationPage } from './pages/CreditAllocationPage';
 import { MonitoringPage } from './pages/MonitoringPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { AdminPage } from './pages/AdminPage';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignupPage';
 
 const RouterView: React.FC = () => {
-  const { currentPath } = useApp();
+  const { currentPath, isAuthenticated, navigateTo } = useApp();
+  const isPublicPath = currentPath === '/' || currentPath === '/login' || currentPath === '/signup';
+
+  useEffect(() => {
+    if (!isAuthenticated && !isPublicPath) {
+      navigateTo('/');
+    } else if (isAuthenticated && (currentPath === '/login' || currentPath === '/signup')) {
+      navigateTo('/dashboard');
+    }
+  }, [currentPath, isAuthenticated, isPublicPath]);
 
   const getSubtitle = () => {
     switch (currentPath) {
@@ -57,6 +68,10 @@ const RouterView: React.FC = () => {
     switch (currentPath) {
       case '/':
         return <LandingPage />;
+      case '/login':
+        return <LoginPage />;
+      case '/signup':
+        return <SignupPage />;
       case '/dashboard':
         return <DashboardPage />;
       case '/onboarding':
@@ -85,15 +100,24 @@ const RouterView: React.FC = () => {
     }
   };
 
+  const showAppShell = isAuthenticated && !isPublicPath;
+  const content = !isAuthenticated && !isPublicPath ? <LandingPage /> : renderContent();
+
   return (
     <div className="min-h-screen bg-[#F8FAF7] text-[#1C2930] flex flex-col antialiased selection:bg-[#9af4d8] selection:text-[#00725d]">
-      <Header subtitle={getSubtitle()} />
-      <Sidebar />
-      <main className="flex-1 w-full pt-20 pb-20 md:pb-8 md:pl-72">
-        {renderContent()}
-      </main>
-      <BottomNav />
-      <ConsentModal />
+      {showAppShell ? (
+        <>
+          <Header subtitle={getSubtitle()} />
+          <Sidebar />
+          <main className="flex-1 w-full pt-20 pb-20 md:pb-8 md:pl-72">
+            {content}
+          </main>
+          <BottomNav />
+          <ConsentModal />
+        </>
+      ) : (
+        <main className="flex-1 w-full">{content}</main>
+      )}
     </div>
   );
 };

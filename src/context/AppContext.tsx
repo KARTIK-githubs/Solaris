@@ -14,6 +14,19 @@ import {
   INITIAL_AUDIT_LOGS 
 } from '../data/mockData';
 import { runAffordabilityOptimiser } from '../utils/optimiserEngine';
+import {
+  authenticateAccount,
+  clearAuthSession,
+  getAuthSession,
+  registerAccount,
+  saveAuthSession,
+  type AuthSession
+} from '../utils/authStorage';
+
+export interface AuthResult {
+  success: boolean;
+  error?: string;
+}
 
 interface AppContextType {
   currentRole: UserRole;
@@ -23,6 +36,11 @@ interface AppContextType {
   
   currentPath: string;
   navigateTo: (path: string) => void;
+
+  isAuthenticated: boolean;
+  signUp: (name: string, email: string, password: string) => Promise<AuthResult>;
+  logIn: (email: string, password: string) => Promise<AuthResult>;
+  logOut: () => void;
 
   community: CommunityProject;
   updateCommunity: (updates: Partial<CommunityProject>) => void;
@@ -54,7 +72,20 @@ const STORAGE_KEYS = {
   LOGS: 'solaris_logs'
 };
 
+const buildAuthProfile = (account: { id: string; name: string; email: string }): UserProfile => ({
+  ...DEMO_USERS['household'],
+  id: account.id,
+  name: account.name,
+  email: account.email,
+  roleTitle: 'Resident · Solaris Member',
+  consentSigned: false,
+  consentDate: undefined
+});
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [session, setSession] = useState<AuthSession | null>(() => getAuthSession());
+  const isAuthenticated = Boolean(session);
+
   // 1. Role & User State
   const [currentRole, setCurrentRole] = useState<UserRole>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.ROLE);
@@ -70,13 +101,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         console.error(e);
       }
     }
+    const activeSession = getAuthSession();
+    if (activeSession) {
+      return buildAuthProfile({
+        id: activeSession.accountId,
+        name: activeSession.name,
+        email: activeSession.email
+      });
+    }
     return DEMO_USERS['household'];
   });
 
   // 2. Navigation State
   const [currentPath, setCurrentPath] = useState<string>(() => {
     const hash = window.location.hash.replace('#', '');
-    return hash || '/dashboard';
+    return hash || '/';
   });
 
   const navigateTo = (path: string) => {
@@ -88,9 +127,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        setCurrentPath(hash);
-      }
+      setCurrentPath(hash || '/');
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -187,6 +224,45 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updated));
       return updated;
     });
+  };
+
+  const applyAuthSession = (account: { id: string; name: string; email: string }) => {
+    const authSession = saveAuthSession(account);
+    const profile = buildAuthProfile(account);
+    setSession(authSession);
+    setCurrentRole('household');
+    setCurrentUser(profile);
+    localStorage.setItem(STORAGE_KEYS.ROLE, 'household');
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(profile));
+  };
+
+  const signUp = async (name: string, email: string, password: string): Promise<AuthResult> => {
+    const result = await registerAccount(name, email, password);
+    if (!result.success || !result.account) {
+      return { success: false, error: result.error || 'Unable to create your account.' };
+    }
+    applyAuthSession(result.account);
+    return { success: true };
+  };
+
+  const logIn = async (email: string, password: string): Promise<AuthResult> => {
+    const result = await authenticateAccount(email, password);
+    if (!result.success || !result.account) {
+      return { success: false, error: result.error || 'Unable to log in.' };
+    }
+    applyAuthSession(result.account);
+    return { success: true };
+  };
+
+  const logOut = () => {
+    clearAuthSession();
+    setSession(null);
+    setCurrentRole('household');
+    setCurrentUser(DEMO_USERS['household']);
+    localStorage.removeItem(STORAGE_KEYS.ROLE);
+    localStorage.removeItem(STORAGE_KEYS.USER);
+    setIsSidebarOpen(false);
+    navigateTo('/');
   };
 
   const updateCommunity = (updates: Partial<CommunityProject>) => {
@@ -287,6 +363,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateCurrentUser,
         currentPath,
         navigateTo,
+        isAuthenticated,
+        signUp,
+        logIn,
+        logOut,
         community,
         updateCommunity,
         inviteMember,

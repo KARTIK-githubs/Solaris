@@ -12,6 +12,8 @@ export const Header: React.FC<HeaderProps> = ({ subtitle = 'Main Dashboard' }) =
     currentRole, 
     switchRole, 
     navigateTo,
+    isAuthenticated,
+    logOut,
     setIsSidebarOpen 
   } = useApp();
 
@@ -110,6 +112,20 @@ export const Header: React.FC<HeaderProps> = ({ subtitle = 'Main Dashboard' }) =
                     </button>
                   ))}
                 </div>
+                {isAuthenticated && (
+                  <div className="px-2 pt-2 pb-1 border-t border-[#e2f0f9]">
+                    <button
+                      onClick={() => {
+                        setShowRoleMenu(false);
+                        logOut();
+                      }}
+                      className="w-full px-3 py-2 rounded-lg flex items-center gap-2 text-xs font-bold text-[#93000a] hover:bg-[#ffdad6]/40 transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">logout</span>
+                      <span>Log out</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
