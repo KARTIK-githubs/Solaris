@@ -72,14 +72,16 @@ const STORAGE_KEYS = {
   LOGS: 'solaris_logs'
 };
 
-const buildAuthProfile = (account: { id: string; name: string; email: string }): UserProfile => ({
+const buildAuthProfile = (account: { id: string; name: string; email: string }, needsOnboarding: boolean = false): UserProfile => ({
   ...DEMO_USERS['household'],
   id: account.id,
   name: account.name,
   email: account.email,
   roleTitle: 'Resident · Solaris Member',
   consentSigned: false,
-  consentDate: undefined
+  consentDate: undefined,
+  onboardingCompleted: false,
+  needsOnboarding
 });
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -226,9 +228,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
-  const applyAuthSession = (account: { id: string; name: string; email: string }) => {
+  const applyAuthSession = (account: { id: string; name: string; email: string }, needsOnboarding: boolean = false) => {
     const authSession = saveAuthSession(account);
-    const profile = buildAuthProfile(account);
+    const profile = buildAuthProfile(account, needsOnboarding);
     setSession(authSession);
     setCurrentRole('household');
     setCurrentUser(profile);
@@ -241,7 +243,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!result.success || !result.account) {
       return { success: false, error: result.error || 'Unable to create your account.' };
     }
-    applyAuthSession(result.account);
+    applyAuthSession(result.account, true);
     return { success: true };
   };
 
@@ -250,7 +252,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!result.success || !result.account) {
       return { success: false, error: result.error || 'Unable to log in.' };
     }
-    applyAuthSession(result.account);
+    applyAuthSession(result.account, false);
     return { success: true };
   };
 
