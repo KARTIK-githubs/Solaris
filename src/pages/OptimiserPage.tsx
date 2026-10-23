@@ -109,11 +109,13 @@ export const OptimiserPage: React.FC = () => {
       </div>
 
       {/* Scenario Selector Pills */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" role="tablist" aria-label="Optimisation scenarios">
         <button
           type="button"
+          role="tab"
+          aria-selected={activeScenario === 'optimal'}
           onClick={() => setActiveScenario('optimal')}
-          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 ${
+          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeScenario === 'optimal'
               ? 'bg-[#006b57] text-white'
               : 'bg-[#e2f0f9] text-[#404846] hover:text-[#101d24]'
@@ -125,8 +127,10 @@ export const OptimiserPage: React.FC = () => {
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeScenario === 'equal'}
           onClick={() => setActiveScenario('equal')}
-          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeScenario === 'equal'
               ? 'bg-[#006b57] text-white'
               : 'bg-[#e2f0f9] text-[#404846] hover:text-[#101d24]'
@@ -137,8 +141,10 @@ export const OptimiserPage: React.FC = () => {
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeScenario === 'individual'}
           onClick={() => setActiveScenario('individual')}
-          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeScenario === 'individual'
               ? 'bg-[#006b57] text-white'
               : 'bg-[#e2f0f9] text-[#404846] hover:text-[#101d24]'
@@ -335,7 +341,7 @@ export const OptimiserPage: React.FC = () => {
                 key={item.kw}
                 type="button"
                 onClick={() => handleKwSelect(item.kw as any)}
-                className={`py-2 px-1 text-center rounded-lg text-xs transition-all ${
+                className={`py-2 px-1 text-center rounded-lg text-xs transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                   optimisationParams.targetCapacityKw === item.kw
                     ? 'bg-[#006b57] text-white shadow-sm font-bold'
                     : 'bg-[#e2f0f9] text-[#101d24] hover:bg-[#dceaf4]'
@@ -399,7 +405,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => toggleStressChip('monsoonDrop')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               optimisationParams.stressFactors.monsoonDrop
                 ? 'bg-[#ffdea7] text-[#271900] shadow-sm'
                 : 'bg-[#e2f0f9] text-[#404846] hover:bg-[#dceaf4]'
@@ -412,7 +418,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => toggleStressChip('rateSpike')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               optimisationParams.stressFactors.rateSpike
                 ? 'bg-[#ffdea7] text-[#271900] shadow-sm'
                 : 'bg-[#e2f0f9] text-[#404846] hover:bg-[#dceaf4]'
@@ -425,7 +431,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => toggleStressChip('unitDropOut')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               optimisationParams.stressFactors.unitDropOut
                 ? 'bg-[#ffdea7] text-[#271900] shadow-sm'
                 : 'bg-[#e2f0f9] text-[#404846] hover:bg-[#dceaf4]'
@@ -438,7 +444,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => toggleStressChip('subsidyDelay')}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               optimisationParams.stressFactors.subsidyDelay
                 ? 'bg-[#ffdea7] text-[#271900] shadow-sm'
                 : 'bg-[#e2f0f9] text-[#404846] hover:bg-[#dceaf4]'
@@ -527,7 +533,7 @@ export const OptimiserPage: React.FC = () => {
         <button
           type="button"
           onClick={handleCommitShare}
-          className="w-full py-3.5 px-4 rounded-xl bg-[#006b57] text-white font-headline text-sm font-semibold shadow-md hover:bg-[#002620] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+          className="w-full py-3.5 px-4 rounded-xl bg-[#006b57] text-white font-headline text-sm font-semibold shadow-md hover:bg-[#002620] active:scale-[0.99] transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <span className="material-symbols-outlined text-[20px]">bookmark</span>
           {committedFeedback ? 'Power Share Committed! Redirecting...' : 'Save & Commit Power Share'}
@@ -537,7 +543,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsExportOpen(true)}
-            className="py-2.5 px-3 rounded-xl bg-[#e2f0f9] text-[#101d24] text-xs font-semibold hover:bg-[#dceaf4] transition-all flex items-center justify-center gap-1.5"
+            className="py-2.5 px-3 rounded-xl bg-[#e2f0f9] text-[#101d24] text-xs font-semibold hover:bg-[#dceaf4] transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
           >
             <span className="material-symbols-outlined text-[18px] text-[#006b57]">picture_as_pdf</span>
             Feasibility PDF
@@ -546,7 +552,7 @@ export const OptimiserPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsExportOpen(true)}
-            className="py-2.5 px-3 rounded-xl bg-[#e2f0f9] text-[#101d24] text-xs font-semibold hover:bg-[#dceaf4] transition-all flex items-center justify-center gap-1.5"
+            className="py-2.5 px-3 rounded-xl bg-[#e2f0f9] text-[#101d24] text-xs font-semibold hover:bg-[#dceaf4] transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
           >
             <span className="material-symbols-outlined text-[18px] text-[#006b57]">share</span>
             RWA Proposal

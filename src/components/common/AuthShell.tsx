@@ -32,7 +32,7 @@ export const AuthShell: React.FC<AuthShellProps> = ({ eyebrow, title, subtitle, 
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 pb-10 grid lg:grid-cols-2 gap-6 items-center">
         <section className="hidden lg:flex flex-col gap-5 p-7 rounded-2xl bg-[#103d35] text-white shadow-md">
           <span className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-white/10 text-[#9af4d8] text-xs font-semibold">
-            <span>☀️</span>
+            <span className="material-symbols-outlined text-[14px]">wb_sunny</span>
             <span>ONE SUN. MANY COMMUNITIES.</span>
           </span>
           <div className="space-y-2">

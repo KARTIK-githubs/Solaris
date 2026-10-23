@@ -29,18 +29,24 @@ export const AdminPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 p-1 rounded-xl bg-[#e2f0f9] text-xs font-semibold">
+      <div className="flex items-center gap-2 p-1 rounded-xl bg-[#e2f0f9] text-xs font-semibold" role="tablist" aria-label="Admin console sections">
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'audit'}
           onClick={() => setActiveTab('audit')}
-          className={`flex-1 py-1.5 rounded-lg transition-colors ${
+          className={`flex-1 py-1.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeTab === 'audit' ? 'bg-white text-[#002620] shadow-sm font-bold' : 'text-[#404846]'
           }`}
         >
           Audit Logs ({auditLogs.length})
         </button>
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'rules'}
           onClick={() => setActiveTab('rules')}
-          className={`flex-1 py-1.5 rounded-lg transition-colors ${
+          className={`flex-1 py-1.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeTab === 'rules' ? 'bg-white text-[#002620] shadow-sm font-bold' : 'text-[#404846]'
           }`}
         >

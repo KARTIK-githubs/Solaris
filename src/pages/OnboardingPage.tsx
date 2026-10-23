@@ -52,9 +52,10 @@ export const OnboardingPage: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => navigateTo('/dashboard')}
               aria-label="Go Back"
-              className="w-8 h-8 rounded-full bg-[#e2f0f9] flex items-center justify-center text-[#101d24] hover:bg-[#dceaf4] active:scale-95"
+              className="w-8 h-8 rounded-full bg-[#e2f0f9] flex items-center justify-center text-[#101d24] hover:bg-[#dceaf4] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
             >
               <span className="material-symbols-outlined text-[18px]">arrow_back</span>
             </button>
@@ -66,11 +67,12 @@ export const OnboardingPage: React.FC = () => {
               <span className="text-[10px] text-[#404846] font-medium">Together We Shine Brighter</span>
             </div>
           </div>
-          <button
+<button
+            type="button"
             onClick={() => navigateTo('/dashboard')}
-            className="px-3 py-1 rounded-full bg-white text-[#006b57] text-xs font-semibold shadow-sm border border-[#e2f0f9] hover:bg-[#f4faff]"
+            className="px-3 py-1 rounded-full bg-white text-[#006b57] text-xs font-semibold shadow-sm border border-[#e2f0f9] hover:bg-[#f4faff] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
           >
-            Save &amp; Exit
+            Save & Exit
           </button>
         </div>
 
@@ -135,10 +137,11 @@ export const OnboardingPage: React.FC = () => {
                 { id: 'BYPL', name: 'BSES Yamuna Power Limited (BYPL)', zone: 'Central & East Delhi Grid' },
                 { id: 'TPDDL', name: 'Tata Power Delhi Distribution (TPDDL)', zone: 'North & Northwest Delhi' }
               ].map((opt) => (
-                <label
+                <button
+                  type="button"
                   key={opt.id}
                   onClick={() => setDiscom(opt.id as any)}
-                  className={`relative flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${
+                  className={`relative flex items-center justify-between p-3 rounded-lg border w-full text-left transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                     discom === opt.id 
                       ? 'bg-[#e8f6ff] border-[#006b57]' 
                       : 'bg-white border-[#e2f0f9] hover:bg-[#f4faff]'
@@ -158,7 +161,7 @@ export const OnboardingPage: React.FC = () => {
                   {discom === opt.id && (
                     <span className="material-symbols-outlined text-[#006b57] text-[20px]">check_circle</span>
                   )}
-                </label>
+                </button>
               ))}
             </div>
           </div>
@@ -191,7 +194,7 @@ export const OnboardingPage: React.FC = () => {
                 type="button"
                 onClick={handleVerifyCA}
                 disabled={isVerifying}
-                className={`h-11 px-4 rounded-lg font-headline text-xs font-semibold tracking-wide flex items-center gap-1 active:scale-95 shrink-0 transition-colors ${
+                className={`h-11 px-4 rounded-lg font-headline text-xs font-semibold tracking-wide flex items-center gap-1 active:scale-95 shrink-0 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                   isVerified 
                     ? 'bg-[#103d35] text-white' 
                     : 'bg-[#006b57] text-white hover:bg-[#002620]'
@@ -302,7 +305,7 @@ export const OnboardingPage: React.FC = () => {
                   key={opt.id}
                   type="button"
                   onClick={() => setHousingType(opt.id as any)}
-                  className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                     housingType === opt.id
                       ? 'bg-white text-[#002620] shadow-sm'
                       : 'text-[#404846] hover:text-[#002620]'
@@ -317,19 +320,17 @@ export const OnboardingPage: React.FC = () => {
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-[#404846]">Terrace Access Rights</label>
             <div className="grid grid-cols-1 gap-2">
-              <label 
-                onClick={() => setTerraceAccess('Shared')}
-                className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer ${
-                  terraceAccess === 'Shared' ? 'bg-[#e8f6ff] border-[#006b57]' : 'bg-white border-[#e2f0f9]'
-                }`}
-              >
+              <label className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer ${
+                terraceAccess === 'Shared' ? 'bg-[#e8f6ff] border-[#006b57]' : 'bg-white border-[#e2f0f9]'
+              }`}>
                 <div className="flex items-center gap-2">
                   <input
                     type="radio"
                     name="terrace"
+                    value="Shared"
                     checked={terraceAccess === 'Shared'}
                     onChange={() => setTerraceAccess('Shared')}
-                    className="accent-[#006b57]"
+                    className="accent-[#006b57] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
                   />
                   <span className="text-xs font-medium text-[#101d24]">Shared Common Terrace (RWA Co-owned)</span>
                 </div>
@@ -338,19 +339,17 @@ export const OnboardingPage: React.FC = () => {
                 </span>
               </label>
 
-              <label 
-                onClick={() => setTerraceAccess('Private')}
-                className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer ${
-                  terraceAccess === 'Private' ? 'bg-[#e8f6ff] border-[#006b57]' : 'bg-white border-[#e2f0f9]'
-                }`}
-              >
+              <label className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer ${
+                terraceAccess === 'Private' ? 'bg-[#e8f6ff] border-[#006b57]' : 'bg-white border-[#e2f0f9]'
+              }`}>
                 <div className="flex items-center gap-2">
                   <input
                     type="radio"
                     name="terrace"
+                    value="Private"
                     checked={terraceAccess === 'Private'}
                     onChange={() => setTerraceAccess('Private')}
-                    className="accent-[#006b57]"
+                    className="accent-[#006b57] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
                   />
                   <span className="text-xs font-medium text-[#101d24]">Private Exclusive Terrace Roof Rights</span>
                 </div>
@@ -389,11 +388,12 @@ export const OnboardingPage: React.FC = () => {
 
           <div className="space-y-2.5">
             {/* Goal 1: VNM */}
-            <label 
+            <button
+              type="button"
               onClick={() => setSolarGoal('vnm')}
-              className={`block p-3.5 rounded-xl border cursor-pointer transition-all ${
+              className={`w-full p-3.5 rounded-xl border text-left transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                 solarGoal === 'vnm' 
-                  ? 'bg-[#e8f6ff] border-[#006b57] shadow-sm' 
+                  ? 'bg-[#e8f6ff] border-[#006b57] shadow-sm'
                   : 'bg-white border-[#e2f0f9] hover:bg-[#f4faff]'
               }`}
             >
@@ -425,14 +425,15 @@ export const OnboardingPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </label>
+            </button>
 
             {/* Goal 2: CAPEX */}
-            <label 
+            <button
+              type="button"
               onClick={() => setSolarGoal('capex')}
-              className={`block p-3.5 rounded-xl border cursor-pointer transition-all ${
+              className={`w-full p-3.5 rounded-xl border text-left transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                 solarGoal === 'capex' 
-                  ? 'bg-[#e8f6ff] border-[#006b57] shadow-sm' 
+                  ? 'bg-[#e8f6ff] border-[#006b57] shadow-sm'
                   : 'bg-white border-[#e2f0f9] hover:bg-[#f4faff]'
               }`}
             >
@@ -456,12 +457,13 @@ export const OnboardingPage: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </label>
+            </button>
 
             {/* Goal 3: RESCO */}
-            <label 
+            <button
+              type="button"
               onClick={() => setSolarGoal('resco')}
-              className={`block p-3.5 rounded-xl border cursor-pointer transition-all ${
+              className={`w-full p-3.5 rounded-xl border text-left transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
                 solarGoal === 'resco' 
                   ? 'bg-[#e8f6ff] border-[#006b57] shadow-sm' 
                   : 'bg-white border-[#e2f0f9] hover:bg-[#f4faff]'
@@ -487,7 +489,7 @@ export const OnboardingPage: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </label>
+            </button>
           </div>
         </div>
 
@@ -498,7 +500,7 @@ export const OnboardingPage: React.FC = () => {
               type="button"
               onClick={handleContinue}
               disabled={isSubmitting}
-              className="w-full py-3.5 px-4 rounded-xl bg-[#006b57] text-white font-headline text-sm font-bold shadow-md hover:bg-[#002620] transition-all flex items-center justify-center gap-2 active:scale-98"
+              className="w-full py-3.5 px-4 rounded-xl bg-[#006b57] text-white font-headline text-sm font-bold shadow-md hover:bg-[#002620] transition-all flex items-center justify-center gap-2 active:scale-98 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
             >
               {isSubmitting ? (
                 <>

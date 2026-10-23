@@ -12,11 +12,13 @@ export const RegulationsPage: React.FC = () => {
       
       {/* Subsidies Category Toggle Bar */}
       <section className="pt-2 pb-3">
-        <div className="flex items-center justify-between bg-[#e2f0f9] p-1 rounded-xl shadow-sm mb-3">
+        <div className="flex items-center justify-between bg-[#e2f0f9] p-1 rounded-xl shadow-sm mb-3" role="tablist" aria-label="Regulatory pathway categories">
           <button
             type="button"
+            role="tab"
+            aria-selected={filterType === 'res'}
             onClick={() => setFilterType('res')}
-            className={`flex-1 py-2 px-3 rounded-lg text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2 px-3 rounded-lg text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               filterType === 'res'
                 ? 'bg-white text-[#002620] shadow-sm'
                 : 'text-[#404846] hover:text-[#002620]'
@@ -28,8 +30,10 @@ export const RegulationsPage: React.FC = () => {
           
           <button
             type="button"
+            role="tab"
+            aria-selected={filterType === 'com'}
             onClick={() => setFilterType('com')}
-            className={`flex-1 py-2 px-3 rounded-lg text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2 px-3 rounded-lg text-center text-xs font-semibold transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
               filterType === 'com'
                 ? 'bg-white text-[#002620] shadow-sm'
                 : 'text-[#404846] hover:text-[#002620]'
@@ -143,8 +147,9 @@ export const RegulationsPage: React.FC = () => {
               <span className="font-mono text-[10px]">F.3(644)/Tariff/DERC</span>
             </div>
             <button
+              type="button"
               onClick={() => navigateTo('/community')}
-              className="w-full h-11 rounded-lg bg-[#006b57] text-white font-headline text-xs font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-[#002620] active:scale-[0.99] transition-all"
+              className="w-full h-11 rounded-lg bg-[#006b57] text-white font-headline text-xs font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-[#002620] active:scale-[0.99] transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
             >
               <span>Start Community VNM Draft</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -212,8 +217,9 @@ export const RegulationsPage: React.FC = () => {
               </span>
             </div>
             <button
+              type="button"
               onClick={() => navigateTo('/assessment')}
-              className="w-full h-11 rounded-lg bg-[#e2f0f9] text-[#002620] font-headline text-xs font-semibold flex items-center justify-center gap-2 hover:bg-[#dceaf4] transition-colors"
+              className="w-full h-11 rounded-lg bg-[#e2f0f9] text-[#002620] font-headline text-xs font-semibold flex items-center justify-center gap-2 hover:bg-[#dceaf4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
             >
               <span>View Individual Assessment</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -281,8 +287,11 @@ export const RegulationsPage: React.FC = () => {
       <section className="mt-5">
         <div className="bg-white rounded-xl shadow-sm border border-[#e2f0f9] overflow-hidden">
           <button
+            type="button"
             onClick={() => setIsChecklistOpen(!isChecklistOpen)}
-            className="w-full p-4 flex items-center justify-between text-left hover:bg-[#f4faff] transition-colors"
+            className="w-full p-4 flex items-center justify-between text-left hover:bg-[#f4faff] transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
+            aria-expanded={isChecklistOpen}
+            aria-controls="compliance-checklist"
           >
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-[#9af4d8] text-[#006b57] flex items-center justify-center shrink-0">
@@ -303,7 +312,7 @@ export const RegulationsPage: React.FC = () => {
           </button>
 
           {isChecklistOpen && (
-            <div className="px-4 pb-4 pt-1 flex flex-col gap-2.5 animate-in fade-in">
+            <div id="compliance-checklist" className="px-4 pb-4 pt-1 flex flex-col gap-2.5 animate-in fade-in">
               <div className="flex items-start gap-3 p-2.5 rounded-lg bg-[#e8f6ff] border border-[#d6e5ee]">
                 <span className="material-symbols-outlined text-[#006b57] text-[20px] shrink-0 mt-0.5">check_circle</span>
                 <div className="flex flex-col">

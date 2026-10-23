@@ -41,9 +41,10 @@ export const DashboardPage: React.FC = () => {
       {/* KPI Metric Cards Grid (2x2) */}
       <div className="grid grid-cols-2 gap-3">
         {/* Card 1: Savings */}
-        <div 
+        <button
+          type="button"
           onClick={() => navigateTo('/assessment')}
-          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between cursor-pointer hover:border-[#006b57]/40 transition-colors"
+          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <div className="flex items-start justify-between mb-2">
             <span className="text-xs text-[#404846] font-medium">Est. Monthly Savings</span>
@@ -63,12 +64,13 @@ export const DashboardPage: React.FC = () => {
             </div>
             <p className="mt-2 text-[11px] text-[#404846]/80 leading-tight">Delhi DERC Slab 4</p>
           </div>
-        </div>
+        </button>
 
         {/* Card 2: Solar Capacity */}
-        <div 
+        <button
+          type="button"
           onClick={() => navigateTo('/optimiser')}
-          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between cursor-pointer hover:border-[#006b57]/40 transition-colors"
+          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <div className="flex items-start justify-between mb-2">
             <span className="text-xs text-[#404846] font-medium">Solar Capacity</span>
@@ -90,12 +92,13 @@ export const DashboardPage: React.FC = () => {
               Terrace: {currentUser.terraceAreaSqFt} sq.ft unshaded
             </p>
           </div>
-        </div>
+        </button>
 
         {/* Card 3: Pod Projects */}
-        <div 
+        <button
+          type="button"
           onClick={() => navigateTo('/community')}
-          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between cursor-pointer hover:border-[#006b57]/40 transition-colors"
+          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <div className="flex items-start justify-between mb-2">
             <span className="text-xs text-[#404846] font-medium">Pod Projects</span>
@@ -116,12 +119,13 @@ export const DashboardPage: React.FC = () => {
               {community.name}
             </p>
           </div>
-        </div>
+        </button>
 
         {/* Card 4: Regulatory Status */}
-        <div 
+        <button
+          type="button"
           onClick={() => navigateTo('/regulations')}
-          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between cursor-pointer hover:border-[#006b57]/40 transition-colors"
+          className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col justify-between w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <div className="flex items-start justify-between mb-2">
             <span className="text-xs text-[#404846] font-medium">Regulatory VNM</span>
@@ -140,7 +144,7 @@ export const DashboardPage: React.FC = () => {
             </div>
             <p className="mt-2 text-[11px] text-[#404846]/80 leading-tight">BRPL Queue #418</p>
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Recommended Next Action: Consent Banner */}
@@ -305,9 +309,10 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* Rooftop Photo Verification Snapshot */}
-      <div 
+      <button
+        type="button"
         onClick={() => navigateTo('/assessment')}
-        className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex items-center gap-3 cursor-pointer hover:border-[#006b57]/40 transition-colors"
+        className="bg-white p-3.5 rounded-xl shadow-sm border border-[#e2f0f9] flex items-center gap-3 w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
       >
         <div className="w-16 h-16 rounded-lg bg-[#e2f0f9] overflow-hidden shrink-0 border border-[#c0c8c5]/30">
           <img 
@@ -332,7 +337,7 @@ export const DashboardPage: React.FC = () => {
             </span>
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Solar Pod Approval Timeline Card */}
       <div className="bg-white p-4 rounded-xl shadow-sm border border-[#e2f0f9] flex flex-col gap-3">
@@ -404,8 +409,9 @@ export const DashboardPage: React.FC = () => {
         <div className="flex items-center justify-between mb-1">
           <h3 className="font-headline text-sm font-bold text-[#002620]">Community Activity</h3>
           <button 
+            type="button"
             onClick={() => navigateTo('/community')}
-            className="text-xs text-[#006b57] font-semibold hover:underline"
+            className="text-xs text-[#006b57] font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 rounded"
           >
             View All
           </button>
@@ -481,7 +487,7 @@ export const DashboardPage: React.FC = () => {
       {assistanceRequested && (
         <div className="p-3 rounded-lg bg-[#e8f6ff] border border-[#006b57]/30 text-xs text-[#002620] flex items-center justify-between animate-in fade-in">
           <span>Desk Officer connected: Direct helpline <strong>+91 (011) 2652-BRPL</strong> (Ref #VNM-418).</span>
-          <button onClick={() => setAssistanceRequested(false)} className="text-[11px] font-bold text-[#006b57]">Dismiss</button>
+          <button type="button" onClick={() => setAssistanceRequested(false)} className="text-[11px] font-bold text-[#006b57] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 rounded px-2 py-1">Dismiss</button>
         </div>
       )}
 

@@ -83,9 +83,11 @@ export const ReportsPage: React.FC = () => {
       {/* Reports Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         {reportCards.map((card) => (
-          <div
+          <button
             key={card.id}
-            className="bg-white rounded-xl p-4 shadow-sm border border-[#e2f0f9] flex flex-col justify-between hover:border-[#006b57]/40 transition-colors"
+            type="button"
+            onClick={() => handleOpenExport(card.id)}
+            className="bg-white rounded-xl p-4 shadow-sm border border-[#e2f0f9] flex flex-col justify-between w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -106,27 +108,18 @@ export const ReportsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 flex items-center gap-2 border-t border-[#e2f0f9] mt-3">
-              <button
-                type="button"
-                onClick={() => handleOpenExport(card.id)}
-                className="flex-1 py-2 rounded-lg bg-[#006b57] text-white text-xs font-bold hover:bg-[#002620] transition-colors flex items-center justify-center gap-1.5 shadow-sm"
-              >
+<div className="pt-4 flex items-center gap-2 border-t border-[#e2f0f9] mt-3">
+              <span className="flex-1 py-2 rounded-lg bg-[#006b57] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
                 <span className="material-symbols-outlined text-[16px]">print</span>
-                <span>View &amp; Print</span>
-              </button>
+                <span>View & Print</span>
+              </span>
 
-              <button
-                type="button"
-                onClick={() => handleOpenExport(card.id)}
-                className="py-2 px-3 rounded-lg bg-[#e8f6ff] text-[#006b57] text-xs font-semibold hover:bg-[#dceaf4] transition-colors flex items-center gap-1"
-                title="Download CSV Table"
-              >
+              <span className="py-2 px-3 rounded-lg bg-[#e8f6ff] text-[#006b57] text-xs font-semibold flex items-center gap-1">
                 <span className="material-symbols-outlined text-[16px]">table_chart</span>
                 <span>CSV</span>
-              </button>
+              </span>
             </div>
-          </div>
+</button>
         ))}
       </div>
 

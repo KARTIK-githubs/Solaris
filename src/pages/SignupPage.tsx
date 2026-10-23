@@ -107,7 +107,7 @@ export const SignupPage: React.FC = () => {
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-md flex items-center justify-center text-[#717976] hover:bg-[#e2f0f9]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-md flex items-center justify-center text-[#717976] hover:bg-[#e2f0f9] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
             >
               <span className="material-symbols-outlined text-[18px]">
                 {showPassword ? 'visibility_off' : 'visibility'}
@@ -135,7 +135,7 @@ export const SignupPage: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-11 rounded-lg bg-[#006b57] text-white text-sm font-bold hover:bg-[#002620] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full h-11 rounded-lg bg-[#006b57] text-white text-sm font-bold hover:bg-[#002620] transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           {isSubmitting ? 'Creating account...' : 'Create account'}
         </button>

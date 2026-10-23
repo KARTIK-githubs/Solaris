@@ -70,7 +70,7 @@ export const MonitoringPage: React.FC = () => {
           {MAINTENANCE_TICKETS.slice(0, 2).map((ticket) => (
             <div
               key={ticket.id}
-              className="p-3 bg-[#f8faf7] rounded-lg border border-[#e2f0f9] flex items-start justify-between gap-2 text-xs"
+              className="p-3 bg-[#f8faf7] rounded-lg border border-[#e2f0f9] flex items-start justify-between gap-2 text-xs cursor-pointer hover:border-[#006b57]/40 transition-colors"
             >
               <div>
                 <span className="font-bold text-[#002620] block">{ticket.title}</span>

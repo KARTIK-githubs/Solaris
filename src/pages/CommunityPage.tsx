@@ -122,34 +122,40 @@ export const CommunityPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Segmented Navigation */}
-      <div className="p-1 rounded-xl bg-[#e2f0f9] flex items-center justify-between text-center">
+{/* Segmented Navigation */}
+      <div className="p-1 rounded-xl bg-[#e2f0f9] flex items-center justify-between text-center" role="tablist" aria-label="Community workspace sections">
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'roster'}
           onClick={() => setActiveTab('roster')}
-          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all ${
+          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeTab === 'roster'
               ? 'bg-white text-[#002620] shadow-sm'
               : 'text-[#404846] hover:text-[#002620]'
           }`}
         >
-          Roster &amp; Shares
+          Roster & Shares
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'governance'}
           onClick={() => setActiveTab('governance')}
-          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all ${
+          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeTab === 'governance'
               ? 'bg-white text-[#002620] shadow-sm'
               : 'text-[#404846] hover:text-[#002620]'
           }`}
         >
-          Statutory &amp; Legal
+          Statutory & Legal
         </button>
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'timeline'}
           onClick={() => setActiveTab('timeline')}
-          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all ${
+          className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2 ${
             activeTab === 'timeline'
               ? 'bg-white text-[#002620] shadow-sm'
               : 'text-[#404846] hover:text-[#002620]'
@@ -172,10 +178,11 @@ export const CommunityPage: React.FC = () => {
 
           <div className="space-y-2.5">
             {community.members.slice(0, 4).map((member) => (
-              <div 
+              <button
+                type="button"
                 key={member.id}
                 onClick={() => toggleMemberConsent(member.id)}
-                className="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2f0f9] space-y-2.5 cursor-pointer hover:border-[#006b57]/40 transition-colors"
+                className="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2f0f9] space-y-2.5 w-full text-left hover:border-[#006b57]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2.5">
@@ -216,13 +223,13 @@ export const CommunityPage: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-[10px] text-[#404846] font-medium">Deposit Transferred</span>
-                    <p className="text-xs font-bold text-[#006b57] font-mono">
-                      {member.depositPaidInr > 0 ? `₹${member.depositPaidInr.toLocaleString('en-IN')}` : 'Escrow Allocated'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+<p className="text-xs font-bold text-[#006b57] font-mono">
+                       {member.depositPaidInr > 0 ? `₹${member.depositPaidInr.toLocaleString('en-IN')}` : 'Escrow Allocated'}
+                     </p>
+                   </div>
+                 </div>
+               </button>
+             ))}
 
             {/* Invite Button Card */}
             <div className="rounded-xl p-4 bg-[#e2f0f9]/50 border border-dashed border-[#c0c8c5] flex flex-col items-center justify-center text-center space-y-2 py-4">
@@ -316,12 +323,13 @@ export const CommunityPage: React.FC = () => {
                 <p className="text-xs text-[#404846] mt-0.5">
                   DISCOM submission bundle prepared with all aggregated CA numbers and flat allotment matrices.
                 </p>
-                <div className="mt-2">
+<div className="mt-2">
                   <button
+                    type="button"
                     onClick={() => setIsConsentModalOpen(true)}
-                    className="px-3 py-1.5 rounded-lg bg-[#9af4d8] text-[#006b57] text-xs font-bold hover:bg-[#006b57] hover:text-white transition-all shadow-sm"
+                    className="px-3 py-1.5 rounded-lg bg-[#9af4d8] text-[#006b57] text-xs font-bold hover:bg-[#006b57] hover:text-white transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
                   >
-                    Review Draft &amp; Sign e-KYC
+                    Review Draft & Sign e-KYC
                   </button>
                 </div>
               </div>
@@ -441,15 +449,17 @@ export const CommunityPage: React.FC = () => {
       {/* Sticky Bottom Actions */}
       <div className="pt-2 space-y-2.5">
         <button
+          type="button"
           onClick={() => navigateTo('/credit-allocation')}
-          className="w-full h-12 rounded-lg bg-[#006b57] text-white font-headline text-sm font-bold flex items-center justify-center gap-2 shadow-md hover:bg-[#002620] transition-all active:scale-[0.99]"
+          className="w-full h-12 rounded-lg bg-[#006b57] text-white font-headline text-sm font-bold flex items-center justify-center gap-2 shadow-md hover:bg-[#002620] transition-all active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <span>Proceed to Final Resolution Lock</span>
           <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
         </button>
         <button
+          type="button"
           onClick={() => setIsExportOpen(true)}
-          className="w-full h-11 rounded-lg bg-white text-[#101d24] text-xs font-semibold flex items-center justify-center gap-2 shadow-sm border border-[#e2f0f9] hover:bg-[#f4faff] transition-all"
+          className="w-full h-11 rounded-lg bg-white text-[#101d24] text-xs font-semibold flex items-center justify-center gap-2 shadow-sm border border-[#e2f0f9] hover:bg-[#f4faff] transition-all focus:outline-none focus:ring-2 focus:ring-[#9af4d8]/60 focus:ring-offset-2"
         >
           <span className="material-symbols-outlined text-[18px] text-[#006b57]">picture_as_pdf</span>
           <span>Export Community Proposal (PDF)</span>
